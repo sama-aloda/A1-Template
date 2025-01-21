@@ -27,10 +27,10 @@ public class Main {
                 System.out.print(System.lineSeparator());
             }
         } catch(Exception e) {
-            System.err.println("/!\\ An error has occured /!\\");
+            logger.error("/!\\ An error has occured /!\\");
         }
         logger.info("**** Computing path");
-        logger.error("PATH NOT COMPUTED");
+        logger.info("PATH NOT COMPUTED");
         logger.info("** End of MazeRunner");
     }
 }
