@@ -19,9 +19,9 @@ public class Main {
             while ((line = reader.readLine()) != null) {
                 for (int idx = 0; idx < line.length(); idx++) {
                     if (line.charAt(idx) == '#') {
-                        System.out.print("WALL ");
+                        logger.trace("WALL ");
                     } else if (line.charAt(idx) == ' ') {
-                        System.out.print("PASS ");
+                        logger.trace("PASS ");
                     }
                 }
                 System.out.print(System.lineSeparator());
@@ -29,8 +29,8 @@ public class Main {
         } catch(Exception e) {
             System.err.println("/!\\ An error has occured /!\\");
         }
-        System.out.println("**** Computing path");
-        System.out.println("PATH NOT COMPUTED");
-        System.out.println("** End of MazeRunner");
+        logger.info("**** Computing path");
+        logger.error("PATH NOT COMPUTED");
+        logger.info("** End of MazeRunner");
     }
 }
