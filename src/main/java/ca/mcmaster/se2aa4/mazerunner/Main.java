@@ -11,6 +11,9 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import java.util.ArrayList;
+
+
 
 
 public class Main {
@@ -31,32 +34,31 @@ public class Main {
             logger.info("way");
             return;
         }
+        PathFinder pathi = new PathFinder();
+        
       
         if(cmd.hasOption("i")){
             try{
+                 
                 logger.info("**** Reading the maze from file " + cmd.getOptionValue("i"));
                 BufferedReader reader = new BufferedReader(new FileReader(cmd.getOptionValue("i")));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    for (int idx = 0; idx < line.length(); idx++) {
-                        if (line.charAt(idx) == '#') {
-                            logger.info("WALL ");
-                        } else if (line.charAt(idx) == ' ') {
-                            logger.info("PASS ");
-                            }
-                        }
-                        logger.info(System.lineSeparator());
-                    }
+                pathi.getMaze().mazeCreator(reader);
+                logger.info("**** Computing path");
+                System.out.println(pathi.getMaze().toString());
+                pathi.rightHand();
+                logger.info("** End of MazeRunner");
+                
                 } catch(Exception e) {
                     logger.error("/!\\ An error has occured /!\\");
                 }
                     }
-                logger.info("**** Computing path");
-                logger.info("PATH NOT COMPUTED");
-                logger.info("** End of MazeRunner");
+                
+
             
+            
+        }
 
 
 }
-}
+
 
