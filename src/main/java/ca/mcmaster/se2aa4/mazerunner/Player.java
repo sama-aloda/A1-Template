@@ -39,7 +39,7 @@ public class Player{
     }
 
 
-    public int[] checkRight(){
+    public int[] checkRight(){ //checkright 
         int currAngle=angle;
         int[] currSpot= new int[2];
         currSpot[0] = spot[0];
@@ -51,6 +51,29 @@ public class Player{
         
         return newSpot;
 
+    }
+
+    public int[] checkLeft(){ //check left 
+        int currAngle=angle;
+        int[] currSpot= new int[2];
+        currSpot[0] = spot[0];
+        currSpot[1]=spot[1];
+        left();
+        int[] newSpot=forward();
+        this.spot=currSpot;
+        this.angle=currAngle;
+        
+        return newSpot;
+
+    }
+
+    public int[] checkFront(){
+        int[] currSpot= new int[2];
+        currSpot[0] = spot[0];
+        currSpot[1]=spot[1];
+        int[] newSpot=forward();
+        this.spot=currSpot;
+        return newSpot;
     }
 
 }
