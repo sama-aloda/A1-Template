@@ -12,6 +12,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 
@@ -21,44 +22,40 @@ public class Main {
     private static final Logger logger = LogManager.getLogger();
 
     public static void main(String[] args) {
-        logger.info("** Starting Maze Runner");
-
         Options options = new Options();
-        options.addOption("human", false, "human mode"); 
         options.addOption("i", true, "input maze to find path");
+        options.addOption("p", true, "input path to see if viable");
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
+
         try{
-            cmd = parser.parse( options, args);
+            cmd = parser.parse(options, args);
         }catch (Exception e){
-            logger.info("way");
             return;
         }
-        PathFinder pathi = new PathFinder();
         
-      
-        if(cmd.hasOption("i")){
-            try{
-                 
-                logger.info("**** Reading the maze from file " + cmd.getOptionValue("i"));
-                BufferedReader reader = new BufferedReader(new FileReader(cmd.getOptionValue("i")));
-                pathi.getMaze().mazeCreator(reader);
-                logger.info("**** Computing path");
-                System.out.println(pathi.getMaze().toString());
-                pathi.rightHand();
-                logger.info("** End of MazeRunner");
-                
-                } catch(Exception e) {
-                    logger.error("/!\\ An error has occured /!\\");
-                }
-                    }
-                
-
-            
-            
+        
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(cmd.getOptionValue("i")));
+            if(cmd.hasOption("i")&&cmd.hasOption("p")){
+                PathChecker pathp = new PathChecker();
+                pathp.getMaze().mazeCreator(reader);
+                boolean valid=pathp.checkPath(cmd.getOptionValue("p"));
+                if(valid)
+                    System.out.println("Valid path.");
+                else    
+                    System.out.println("Invalid path.");
+            }
+        else if(cmd.hasOption("i")){    
+            PathFinder pathi = new PathFinder();
+            pathi.getMaze().mazeCreator(reader);
+            pathi.rightHand();
+            }
+        
+        }catch (Exception e){
+            return;
+        }           
         }
-
-
 }
 
 
