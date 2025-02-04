@@ -1,6 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
-
+//Class below is an abstract class that has some of the functions needed for its subclasses
+//The class below implements PathRequirements such that it must inherit and implement all of its functions as necessary
 public abstract class Path implements PathRequirements{
     protected Maze maze;
     protected String path;
@@ -12,11 +13,13 @@ public abstract class Path implements PathRequirements{
         player=new Player();
     }
 
+    //method below returns the path as a String
     @Override
     public String getPath(){
         return path;
     }
 
+    //method below returns the Maze as type Maze
     @Override
     public Maze getMaze(){
         return maze;
@@ -49,6 +52,8 @@ public abstract class Path implements PathRequirements{
         n+=p.charAt(i);
         return n;
     }
+    //method below returns a String after converting the String p into canonical form by adding spaces between letters
+    //i.e. "FFFLL" becomes "FFF LL"
     @Override
     public String getCanonicalForm(String p){
         int r=0;
@@ -109,6 +114,8 @@ public abstract class Path implements PathRequirements{
         return newStr;
     }
 
+    //method below returns a String that is the factorized form of String p
+    //e.g. "FFFL" becomes "3F L"
     @Override
     public String getFactorizedForm(String p){
         int r=0;

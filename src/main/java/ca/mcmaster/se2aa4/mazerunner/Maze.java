@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
+//Class Maze for the implementation of the maze
 public class Maze{
     
     private ArrayList<ArrayList<Cell>> maze;
@@ -13,6 +14,8 @@ public class Maze{
         maze=new ArrayList<ArrayList<Cell>>();
     }
 
+    //Method below creates the maze by taking in input from the reader and creating the 2D ArrayList of the maze consisting of type Cell
+    //Its return type is of type void and it takes in a BufferedReader type reader to read from
     public void mazeCreator(BufferedReader reader){   
         int colsize= 0;
         try{
@@ -32,16 +35,18 @@ public class Maze{
             }
         }
         catch( Exception e){
-            System.out.println("Bad File input.");
             return;
         }
         
     }
 
+    //Method below returns the Maze as a 2D ArrayList of type Cell (e.g. ArrayList<ArrayList<Cells>>)
+    //It takes in no parameters
     public ArrayList<ArrayList<Cell>> getMaze(){
         return maze;
     }
 
+    //below returns a String of the maze. It takes in no parameters
     public String toString(){
         String print="";
         for(int i=0;i<maze.size();i++){
@@ -53,6 +58,8 @@ public class Maze{
         return print;
     }
 
+    //below returns the Cell at spot indicated by row and col from the parameters
+    //It takes in row and col both as integers, indicating row and column respectively
     public Cell getSpot(int row, int col){
         if(!maze.isEmpty())
             return maze.get(row).get(col);

@@ -1,5 +1,7 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
+
+//Class below is an interface, ensuring the subclass Path upholds the following methods
 public interface PathRequirements{
     public String getPath();
     public Maze getMaze();
