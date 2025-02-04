@@ -6,7 +6,7 @@ public class Cell{
 
     public Cell(char value){
         if(value!=' '&&value!='#')
-            throw new IllegalArgumentException("Invalid value").
+            throw new IllegalArgumentException("Invalid value");
         this.value=value;
     }
 
