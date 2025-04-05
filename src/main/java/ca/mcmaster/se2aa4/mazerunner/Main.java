@@ -1,22 +1,19 @@
 package ca.mcmaster.se2aa4.mazerunner;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import ca.mcmaster.se2aa4.mazerunner.observer.PathObserver;
+import ca.mcmaster.se2aa4.mazerunner.strategy.PathValidator;
+import ca.mcmaster.se2aa4.mazerunner.strategy.RightHandStrategy;
 
-
-
-//Below class is the main class that calls on other functions as necessary
+/**
+ * Main class for the MazeRunner application.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -26,35 +23,54 @@ public class Main {
         CommandLineParser parser = new DefaultParser();
         CommandLine cmd;
 
-        //below returns an error if arguments cannot be parsed properly
-        try{
+        //parse command line arguments
+        try {
             cmd = parser.parse(options, args);
-        }catch (Exception e){
+        } catch (Exception e) {
+            System.err.println("Error parsing arguments: " + e.getMessage());
             return;
         }
-        
-        
-        try{
-            BufferedReader reader = new BufferedReader(new FileReader(cmd.getOptionValue("i")));
-            if(cmd.hasOption("i")&&cmd.hasOption("p")){ //below checks if path provided in the arguments is valid for maze provided
-                PathChecker pathp = new PathChecker();
-                pathp.getMaze().mazeCreator(reader);
-                boolean valid=pathp.checkPath(cmd.getOptionValue("p"));
-                if(valid)
-                    System.out.println("Valid path.");
-                else    
-                    System.out.println("Invalid path.");
+
+        try {
+            //check if input file is provided
+            if (!cmd.hasOption("i")) {
+                System.err.println("Input maze file is required");
+                return;
             }
-            else if(cmd.hasOption("i")){ // below prints the factorized form of the path found using the right-hand principle
-                PathFinder pathi = new PathFinder();
-                pathi.getMaze().mazeCreator(reader);
-                pathi.rightHand();
+
+            BufferedReader reader = new BufferedReader(new FileReader(cmd.getOptionValue("i")));
+
+            //create the RunnerStation (Subject)
+            RunnerStation station = new RunnerStation();
+            station.initializeMaze(reader);
+
+            //create and attach observers
+            PathObserver pathObserver = new PathObserver(station);
+
+            if (cmd.hasOption("p")) {
+                //validate a given path
+                PathValidator validator = new PathValidator(station);
+                boolean valid = validator.validatePath(cmd.getOptionValue("p"));
+
+                if (valid) {
+                    System.out.println("Valid path.");
+                } else {
+
+                    System.out.println("Invalid path.");
                 }
-        
-        }catch (Exception e){ //bellow returns and fails silently if an error was found (i.e. bad file usage or invalid arguments)
-            return;
-        }           
+            } else {
+                //find a path using right-hand rule
+                RightHandStrategy strategy = new RightHandStrategy(station);
+                strategy.execute();
+                String path = pathObserver.getFactorizedPath();
+                System.out.println(path);
+            }
+
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
 }
 
 

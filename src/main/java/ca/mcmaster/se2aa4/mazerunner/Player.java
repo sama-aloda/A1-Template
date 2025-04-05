@@ -2,13 +2,19 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 //Class Player for the player's actions in the maze
 public class Player{
-    
+
     private int[] spot;
     private int angle; //quadrant way, such that degree of 0 is East, degree of 90 is North, and so on
-    private final int[][] spots={{0,1},{-1,0},{0,-1},{1,0}}; 
+    private final int[][] spots={{0,1},{-1,0},{0,-1},{1,0}};
+    private int start;
 
     public Player(){
         this.spot=new int[]{-1,-1};
+        this.start=0;
+    }
+
+    public int getStartAngle(){
+        return start;
     }
 
     //method below returns type void with parameter type of int[], taking in spot to set the spot.
@@ -50,7 +56,7 @@ public class Player{
 
     //below returns the item currently to the right of the player, without changing its current angle or spot
     //the return is of type int[] returning the spot to the right
-    public int[] checkRight(){ 
+    public int[] checkRight(){
         int currAngle=angle;
         int[] currSpot= new int[2];
         currSpot[0] = spot[0];
@@ -59,14 +65,14 @@ public class Player{
         int[] newSpot=forward();
         this.spot=currSpot;
         this.angle=currAngle;
-        
+
         return newSpot;
 
     }
 
     //below returns the item currently to the left of the left, without changing its current angle or spot
     //the return is of type int[] returning the spot to the right
-    public int[] checkLeft(){ 
+    public int[] checkLeft(){
         int currAngle=angle;
         int[] currSpot= new int[2];
         currSpot[0] = spot[0];
@@ -75,7 +81,7 @@ public class Player{
         int[] newSpot=forward();
         this.spot=currSpot;
         this.angle=currAngle;
-        
+
         return newSpot;
 
     }
