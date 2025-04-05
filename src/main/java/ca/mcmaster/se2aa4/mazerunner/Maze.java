@@ -2,20 +2,16 @@ package ca.mcmaster.se2aa4.mazerunner;
 
 import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 
-//Class Maze for the implementation of the maze
+// maze representation and operations
 public class Maze{
-    
     private ArrayList<ArrayList<Cell>> maze;
 
     public Maze(){
         maze=new ArrayList<ArrayList<Cell>>();
     }
 
-    //Method below creates the maze by taking in input from the reader and creating the 2D ArrayList of the maze consisting of type Cell
-    //Its return type is of type void and it takes in a BufferedReader type reader to read from
+    // creates maze from input stream
     public void mazeCreator(BufferedReader reader){   
         int colsize= 0;
         try{
@@ -37,38 +33,22 @@ public class Maze{
         catch( Exception e){
             return;
         }
-        
     }
 
-    //Method below returns the Maze as a 2D ArrayList of type Cell (e.g. ArrayList<ArrayList<Cells>>)
-    //It takes in no parameters
+    // returns maze structure
     public ArrayList<ArrayList<Cell>> getMaze(){
         return maze;
     }
 
-    //below returns a String of the maze. It takes in no parameters
-    public String toString(){
-        String print="";
-        for(int i=0;i<maze.size();i++){
-            for(int j=0;j<maze.get(0).size();j++){
-                print= print+maze.get(i).get(j);
-            }
-            print=print+"\n";
-        }
-        return print;
-    }
-
-    //below returns the Cell at spot indicated by row and col from the parameters
-    //It takes in row and col both as integers, indicating row and column respectively
+    // gets cell at specified position
     public Cell getSpot(int row, int col){
         if(!maze.isEmpty())
             return maze.get(row).get(col);
         return new Cell('i');
     }
 
+    // checks if position contains wall
     public boolean isWall(int[] spot){
         return maze.get(spot[0]).get(spot[1]).getValue()=='#';
     }
-
 }
-

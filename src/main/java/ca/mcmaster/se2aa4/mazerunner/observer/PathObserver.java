@@ -1,9 +1,10 @@
 package ca.mcmaster.se2aa4.mazerunner.observer;
 
-import ca.mcmaster.se2aa4.mazerunner.RunnerPhase;
 import ca.mcmaster.se2aa4.mazerunner.RunnerSubject;
-import ca.mcmaster.se2aa4.mazerunner.RunnerStation;
+import ca.mcmaster.se2aa4.mazerunner.*;
 
+
+// tracks and records maze solution path
 public class PathObserver extends Observer {
     private StringBuilder path;
 
@@ -12,6 +13,7 @@ public class PathObserver extends Observer {
         this.path = new StringBuilder();
     }
 
+    // records movement actions
     @Override
     public void update() {
         RunnerStation station = (RunnerStation) subject;
@@ -19,19 +21,21 @@ public class PathObserver extends Observer {
         
         if (phase == RunnerPhase.FORWARD) {
             path.append("F");
-        } else if (phase ==RunnerPhase.RIGHT) {
+        } else if (phase == RunnerPhase.RIGHT) {
             path.append("R");
-        } else if (phase ==RunnerPhase.LEFT) {
+        } else if (phase == RunnerPhase.LEFT) {
             path.append("L");
-        } else if (phase ==RunnerPhase.TURN) {
+        } else if (phase == RunnerPhase.TURN) {
             path.append("RR");
         }
     }
 
+    // returns raw path
     public String getPath() {
         return path.toString();
     }
     
+    // returns compressed path notation
     public String getFactorizedPath() {
         if (path.length()==0) {
             return "";
@@ -50,8 +54,8 @@ public class PathObserver extends Observer {
                     factorized.append(count);
                 }
                 factorized.append(current);
-                current =path.charAt(i);
-                count =1;
+                current = path.charAt(i);
+                count = 1;
             }
         }
         

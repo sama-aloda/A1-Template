@@ -17,23 +17,23 @@ public class RightHandStrategy {
     }
 
     public void execute() {
-        //continue until we reach the exit
+        // run until exit is reached
         while (!station.isAtExit()) {
-            //check if can turn right and move
+            // try right turn first
             if (station.canMoveRight()) {
                 invoker.executeCommand(new RightCommand(station));
                 invoker.executeCommand(new ForwardCommand(station));
             }
-            //if can move forward
+            // try forward
             else if (station.canMoveForward()) {
                 invoker.executeCommand(new ForwardCommand(station));
             }
-            //if can turn left and move
+            // try left turn
             else if (station.canMoveLeft()) {
                 invoker.executeCommand(new LeftCommand(station));
                 invoker.executeCommand(new ForwardCommand(station));
             }
-            //if blocked on all sides, turn around
+            // turn around if blocked
             else {
                 invoker.executeCommand(new TurnAroundCommand(station));
                 invoker.executeCommand(new ForwardCommand(station));
