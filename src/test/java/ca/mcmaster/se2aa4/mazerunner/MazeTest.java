@@ -13,31 +13,32 @@ public class MazeTest {
     
     @BeforeEach
     public void setUp() {
+        // initialize a new maze before each test
         maze = new Maze();
     }
     
     @Test
     public void testMazeCreation() {
-        // Create a simple maze
+        // create a simple maze
         String mazeStr = "###\n# #\n###";
         BufferedReader reader = new BufferedReader(new StringReader(mazeStr));
         
         maze.mazeCreator(reader);
         
-        // Check maze dimensions
+        // check maze dimensions
         assertEquals(3, maze.getMaze().size()); // 3 rows
         assertEquals(3, maze.getMaze().get(0).size()); // 3 columns
     }
     
     @Test
     public void testGetSpot() {
-        // Create a simple maze
+        // create a simple maze
         String mazeStr = "###\n# #\n###";
         BufferedReader reader = new BufferedReader(new StringReader(mazeStr));
         
         maze.mazeCreator(reader);
         
-        // Check specific cells
+        // check specific cells
         assertEquals('#', maze.getSpot(0, 0).getValue());
         assertEquals(' ', maze.getSpot(1, 1).getValue());
         assertEquals('#', maze.getSpot(2, 2).getValue());

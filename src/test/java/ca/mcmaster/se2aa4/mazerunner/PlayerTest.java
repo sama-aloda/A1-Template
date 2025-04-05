@@ -10,13 +10,15 @@ public class PlayerTest {
     
     @BeforeEach
     public void setUp() {
+        // initialize player with default values
         player = new Player();
         player.setSpot(new int[]{5, 5});
-        player.setAngle(0); //facing east
+        player.setAngle(0); // facing east
     }
     
     @Test
     public void testInitialPosition() {
+        // check initial position of a new player
         int[] initialPosition = new int[]{-1, -1};
         Player newPlayer = new Player();
         assertArrayEquals(initialPosition, newPlayer.getSpot());
@@ -24,6 +26,7 @@ public class PlayerTest {
     
     @Test
     public void testSetSpot() {
+        // set a new spot for the player
         int[] newSpot = new int[]{10, 10};
         player.setSpot(newSpot);
         assertArrayEquals(newSpot, player.getSpot());
@@ -31,11 +34,11 @@ public class PlayerTest {
     
     @Test
     public void testMoveForward() {
-        //player is at (5,5) facing east (0 degrees)
+        // move player forward while facing east
         player.forward();
         assertArrayEquals(new int[]{5, 6}, player.getSpot());
         
-        //change direction to north (90 degrees) and move forward
+        // change direction to north and move forward
         player.setAngle(90);
         player.forward();
         assertArrayEquals(new int[]{4, 6}, player.getSpot());
@@ -43,13 +46,12 @@ public class PlayerTest {
     
     @Test
     public void testTurnRight() {
-        //player starts facing east (0 degrees)
+        // turn player right from east to south
         player.right();
-        //should now face south (270 degrees)
         player.forward();
         assertArrayEquals(new int[]{6, 5}, player.getSpot());
         
-        //turn right again to face west (180 degrees)
+        // turn right again to face west
         player.right();
         player.forward();
         assertArrayEquals(new int[]{6, 4}, player.getSpot());
@@ -57,13 +59,12 @@ public class PlayerTest {
     
     @Test
     public void testTurnLeft() {
-        //player starts facing east (0 degrees)
+        // turn player left from east to north
         player.left();
-        //should now face north (90 degrees)
         player.forward();
         assertArrayEquals(new int[]{4, 5}, player.getSpot());
         
-        //turn left again to face west (180 degrees)
+        // turn left again to face west
         player.left();
         player.forward();
         assertArrayEquals(new int[]{4, 4}, player.getSpot());
@@ -71,38 +72,38 @@ public class PlayerTest {
     
     @Test
     public void testCheckFront() {
-        //player is at (5,5) facing east (0 degrees)
+        // check the spot in front of the player
         int[] frontSpot = player.checkFront();
         assertArrayEquals(new int[]{5, 6}, frontSpot);
         
-        //player position should not change
+        // ensure player position does not change
         assertArrayEquals(new int[]{5, 5}, player.getSpot());
     }
     
     @Test
     public void testCheckRight() {
-        //player is at (5,5) facing east (0 degrees)
+        // check the spot to the right of the player
         int[] rightSpot = player.checkRight();
         assertArrayEquals(new int[]{6, 5}, rightSpot);
         
-        //player position and angle should not change
+        // ensure player position and angle do not change
         assertArrayEquals(new int[]{5, 5}, player.getSpot());
         
-        //move forward to confirm angle hasn't changed
+        // move forward to confirm angle hasn't changed
         player.forward();
         assertArrayEquals(new int[]{5, 6}, player.getSpot());
     }
     
     @Test
     public void testCheckLeft() {
-        //player is at (5,5) facing east (0 degrees)
+        // check the spot to the left of the player
         int[] leftSpot = player.checkLeft();
         assertArrayEquals(new int[]{4, 5}, leftSpot);
         
-        //player position and angle should not change
+        // ensure player position and angle do not change
         assertArrayEquals(new int[]{5, 5}, player.getSpot());
         
-        //move forward to confirm angle hasn't changed
+        // move forward to confirm angle hasn't changed
         player.forward();
         assertArrayEquals(new int[]{5, 6}, player.getSpot());
     }
