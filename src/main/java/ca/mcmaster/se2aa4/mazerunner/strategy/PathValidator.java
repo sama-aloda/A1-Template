@@ -34,7 +34,7 @@ public class PathValidator {
             } else if (command== 'L') {
                 invoker.executeCommand(new LeftCommand(station));
             } else if (command!= ' ') {
-                return false; 
+                return false;
             }
         }
 
