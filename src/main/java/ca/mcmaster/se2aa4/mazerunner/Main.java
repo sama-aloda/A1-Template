@@ -8,7 +8,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 
 import ca.mcmaster.se2aa4.mazerunner.observer.PathObserver;
-import ca.mcmaster.se2aa4.mazerunner.strategy.PathValidator;
+import ca.mcmaster.se2aa4.mazerunner.strategy.PathChecker;
 import ca.mcmaster.se2aa4.mazerunner.strategy.RightHandStrategy;
 
 /**
@@ -49,8 +49,9 @@ public class Main {
 
             if (cmd.hasOption("p")) {
                 //validate a given path
-                PathValidator validator = new PathValidator(station);
-                boolean valid = validator.validatePath(cmd.getOptionValue("p"));
+
+                PathChecker checker = new PathChecker(station.getMaze());
+                boolean valid = checker.checkPath(cmd.getOptionValue("p"));
 
                 if (valid) {
                     System.out.println("Valid path.");

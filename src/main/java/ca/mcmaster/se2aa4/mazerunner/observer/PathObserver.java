@@ -26,7 +26,6 @@ public class PathObserver extends Observer {
         } else if (phase ==RunnerPhase.TURN) {
             path.append("RR");
         }
-        System.out.println(phase+ " ");
     }
 
     public String getPath() {

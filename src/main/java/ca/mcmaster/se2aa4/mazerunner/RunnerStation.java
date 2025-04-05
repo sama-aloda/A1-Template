@@ -61,6 +61,10 @@ public class RunnerStation extends RunnerSubject {
         notifyAllObservers();
     }
 
+    public Maze getMaze(){
+        return maze;
+    }
+
     public boolean isAtExit() {
         return player.getSpot()[1] == maze.getMaze().get(0).size() - 1;
     }
@@ -80,9 +84,6 @@ public class RunnerStation extends RunnerSubject {
         return maze.getSpot(leftSpot[0], leftSpot[1]).getValue() == ' ';
     }
 
-    public Maze getMaze() {
-        return maze;
-    }
 
     public Player getPlayer() {
         return player;

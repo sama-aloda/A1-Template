@@ -66,5 +66,9 @@ public class Maze{
         return new Cell('i');
     }
 
+    public boolean isWall(int[] spot){
+        return maze.get(spot[0]).get(spot[1]).getValue()=='#';
+    }
+
 }
 
